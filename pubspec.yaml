@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   ionicons: ^0.2.2
   flutter_inappwebview: ^6.0.0
+  flutter_launcher_icons: ^0.14.1
+  mongo_dart: ^0.10.4
 
 dev_dependencies:
   flutter_test:
@@ -92,3 +94,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: "AppIcon"
+  image_path: "assets/logo/jito.jpg"
+  min_sdk_android: 24
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/logo/jito.jpg"
+  remove_alpha_ios: true

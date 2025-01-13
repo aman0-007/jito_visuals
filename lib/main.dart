@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'screens/login_screen/login_screen.dart';
 import 'screens/users/BOD/homescreen_bod.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomescreenBod(),
+      home: const LoginScreen(),
     );
   }
 }

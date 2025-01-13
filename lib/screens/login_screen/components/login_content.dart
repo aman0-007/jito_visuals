@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../../auth/auth_functions.dart';
 import '../../utils/constants.dart';
 import '../../utils/helper_functions.dart';
 import '../animations/change_screen_animation.dart';
@@ -24,7 +25,12 @@ class _LoginContentState extends State<LoginContent>
   late final List<Widget> createAccountContent;
   late final List<Widget> loginContent;
 
-  Widget inputField(String hint, IconData iconData) {
+  AuthFunctions authFunctions = AuthFunctions();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Widget inputField(String hint, IconData iconData, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
       child: SizedBox(
@@ -35,6 +41,7 @@ class _LoginContentState extends State<LoginContent>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(30),
           child: TextField(
+            controller: controller,
             textAlignVertical: TextAlignVertical.bottom,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -52,11 +59,17 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
-  Widget loginButton(String title) {
+  Widget loginButton(BuildContext context, String title, {bool isSignUp = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          if (isSignUp) {
+            authFunctions.signUpUser(context, "none", _nameController.text , _emailController.text, _passwordController.text); // Correctly call signUpUser with context
+          } else {
+            authFunctions.loginUser(context, _emailController.text, _passwordController.text); // Call loginUser for login functionality
+          }
+        },
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14),
           shape: const StadiumBorder(),
@@ -141,18 +154,18 @@ class _LoginContentState extends State<LoginContent>
   @override
   void initState() {
     createAccountContent = [
-      inputField('Name', Ionicons.person_outline),
-      inputField('Email', Ionicons.mail_outline),
-      inputField('Password', Ionicons.lock_closed_outline),
-      loginButton('Sign Up'),
+      inputField('Name', Ionicons.person_outline, _nameController),
+      inputField('Email', Ionicons.mail_outline, _emailController),
+      inputField('Password', Ionicons.lock_closed_outline, _passwordController),
+      loginButton(context,'Sign Up', isSignUp: true),
       orDivider(),
       logos(),
     ];
 
     loginContent = [
-      inputField('Email', Ionicons.mail_outline),
-      inputField('Password', Ionicons.lock_closed_outline),
-      loginButton('Log In'),
+      inputField('Email', Ionicons.mail_outline, _emailController),
+      inputField('Password', Ionicons.lock_closed_outline, _passwordController),
+      loginButton(context,'Sign Up'),
       forgotPassword(),
     ];
 
@@ -181,6 +194,9 @@ class _LoginContentState extends State<LoginContent>
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     ChangeScreenAnimation.dispose();
 
     super.dispose();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import '../components/internet_error_dialogue.dart';
 
 class CustomWebView extends StatefulWidget {
   final String url;
@@ -28,6 +29,21 @@ class _CustomWebViewState extends State<CustomWebView> {
     }
   }
 
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ErrorDialog(
+          title: "Error",
+          message: message,
+          onRetry: () {
+            webViewController.reload(); // Retry loading the page
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,68 +57,34 @@ class _CustomWebViewState extends State<CustomWebView> {
         ),
         backgroundColor: const Color(0xFF1c6697), // Dark blue AppBar
       ),
-      body: Stack(
-        children: [
-          // Gradient Background
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF1c6697), // Dark blue
-                  Color(0xFF80d0c7), // Light teal
-                ],
-              ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: RotatedBox(
+          quarterTurns: 1,
+          child: InAppWebView(
+            initialUrlRequest: widget.preloadedController == null
+                ? URLRequest(url: WebUri(widget.url))
+                : null,
+            onWebViewCreated: (controller) {
+              if (widget.preloadedController == null) {
+                webViewController = controller;
+              }
+            },
+            initialSettings:  InAppWebViewSettings(
+              javaScriptEnabled: true,
+              supportZoom: true,
             ),
+            onLoadError: (controller, url, code, message) {
+              _showErrorDialog(context, "Failed to load the page. Please check your internet connection.");
+            },
+            onLoadHttpError: (controller, url, statusCode, description) {
+              _showErrorDialog(
+                context,
+                "Failed to load the page. HTTP error $statusCode: $description",
+              );
+            },
           ),
-          // Curved Background Elements
-          Positioned(
-            top: -40,
-            right: -40,
-            child: Container(
-              width: 150,
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -40,
-            left: -40,
-            child: Container(
-              width: 250,
-              height: 250,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-          // WebView Content
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: RotatedBox(
-              quarterTurns: 1,
-              child: InAppWebView(
-                initialUrlRequest: widget.preloadedController == null
-                    ? URLRequest(url: WebUri(widget.url))
-                    : null,
-                onWebViewCreated: (controller) {
-                  if (widget.preloadedController == null) {
-                    webViewController = controller;
-                  }
-                },
-                initialSettings: InAppWebViewSettings(
-                  javaScriptEnabled: true,
-                  supportZoom: true,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
