@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/login_screen/components/custom_snackbar.dart';
+import '../screens/login_screen/login_screen.dart';
 import '../screens/users/BOD/homescreen_bod.dart';
 import 'mongo_service.dart';
 
@@ -75,6 +77,11 @@ class AuthFunctions {
       // Determine user type
       final userType = user['userType'];
 
+      // Save login status in SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('userType', userType);
+
       switch (userType) {
         case 'admin':
         // Admin-specific snackbar
@@ -85,10 +92,10 @@ class AuthFunctions {
           );
 
           // Navigate to admin home screen
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomescreenBod()),
-          );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => AdminHomeScreen()),
+          // );
           break;
 
         case 'bod':
@@ -98,12 +105,12 @@ class AuthFunctions {
             'Welcome back, BOD!',
             backgroundColor: Colors.blue,
           );
+
+          // Navigate to BOD home screen
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => HomescreenBod()),
           );
-          // Navigate to user home screen (replace with actual screen)
-          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserHomeScreen()));
           break;
 
         default:
@@ -121,6 +128,42 @@ class AuthFunctions {
         context,
         'Error occurred while logging in: $e',
         backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  Future<void> checkLoginStatus(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      final userType = prefs.getString('userType');
+
+      switch (userType) {
+        case 'admin':
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => AdminHomeScreen()),
+          // );
+          break;
+
+        case 'bod':
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomescreenBod()),
+          );
+          break;
+
+        default:
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+      }
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     }
   }
