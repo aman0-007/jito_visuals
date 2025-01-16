@@ -96,7 +96,7 @@ class AuthFunctions {
           // Navigate to admin home screen
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => AdminHomePage()),
+            MaterialPageRoute(builder: (context) => const AdminHomePage()),
           );
           break;
 

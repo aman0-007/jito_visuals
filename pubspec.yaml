@@ -68,6 +68,7 @@ flutter:
     - assets/images/
     - assets/bod/
     - assets/logo/
+    - assets/zone/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,3 +105,11 @@ flutter_launcher_icons:
   adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/logo/jito.jpg"
   remove_alpha_ios: true
+
+
+dependency_overrides:
+  flutter_inappwebview_android:
+    git:
+      url: https://github.com/holzgeist/flutter_inappwebview
+      path: flutter_inappwebview_android
+      ref: d89b1d32638b49dfc58c4b7c84153be0c269d057
