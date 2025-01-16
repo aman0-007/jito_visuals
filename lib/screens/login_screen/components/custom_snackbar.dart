@@ -37,7 +37,7 @@ class CustomSnackBarWidget extends StatelessWidget {
   final IconData icon;
   final Duration duration;
 
-  CustomSnackBarWidget({
+  const CustomSnackBarWidget({super.key, 
     required this.message,
     required this.backgroundColor,
     required this.textColor,
@@ -64,7 +64,7 @@ class _AnimatedSnackbar extends StatefulWidget {
   final IconData icon;
   final Duration duration;
 
-  _AnimatedSnackbar({
+  const _AnimatedSnackbar({
     required this.message,
     required this.backgroundColor,
     required this.textColor,
@@ -113,7 +113,7 @@ class _AnimatedSnackbarState extends State<_AnimatedSnackbar>
             left: 0,
             right: 0,
             child: LinearProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
               backgroundColor: Colors.transparent,
               value: _controller.value,
             ),
@@ -124,7 +124,7 @@ class _AnimatedSnackbarState extends State<_AnimatedSnackbar>
             decoration: BoxDecoration(
               color: widget.backgroundColor,
               borderRadius: BorderRadius.circular(12),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
                   blurRadius: 6,

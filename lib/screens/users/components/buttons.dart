@@ -22,18 +22,18 @@ class BodOptionButtons extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.blue.shade200, // Background color (adjust to fit your theme)
         borderRadius: BorderRadius.circular(15), // Rounded corners
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             blurRadius: 5,
-            offset: const Offset(0, 2), // Shadow effect for depth
+            offset: Offset(0, 2), // Shadow effect for depth
           ),
         ],
       ),
       child: Row(
         children: [
           // Left side - Icon (25% of the container)
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.2, // 25% width
             child: Icon(
               icon, // Icon passed in
@@ -43,7 +43,7 @@ class BodOptionButtons extends StatelessWidget {
           ),
 
           // Middle - Text (50% of the container)
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.5, // 50% width
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),

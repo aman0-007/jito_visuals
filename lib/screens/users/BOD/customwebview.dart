@@ -8,11 +8,11 @@ class CustomWebView extends StatefulWidget {
   final InAppWebViewController? preloadedController;
 
   const CustomWebView({
-    Key? key,
+    super.key,
     required this.url,
     required this.title,
     this.preloadedController,
-  }) : super(key: key);
+  });
 
   @override
   _CustomWebViewState createState() => _CustomWebViewState();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/login_screen/components/custom_snackbar.dart';
 import '../screens/login_screen/login_screen.dart';
+import '../screens/users/ADMIN/admin_home.dart';
 import '../screens/users/BOD/homescreen_bod.dart';
 import 'mongo_service.dart';
 
@@ -81,6 +82,7 @@ class AuthFunctions {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
       await prefs.setString('userType', userType);
+      await prefs.setString('name', user['name']);
 
       switch (userType) {
         case 'admin':
@@ -92,10 +94,10 @@ class AuthFunctions {
           );
 
           // Navigate to admin home screen
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => AdminHomeScreen()),
-          // );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => AdminHomePage()),
+          );
           break;
 
         case 'bod':
@@ -109,7 +111,7 @@ class AuthFunctions {
           // Navigate to BOD home screen
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomescreenBod()),
+            MaterialPageRoute(builder: (context) => const HomescreenBod()),
           );
           break;
 
@@ -141,29 +143,29 @@ class AuthFunctions {
 
       switch (userType) {
         case 'admin':
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => AdminHomeScreen()),
-          // );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => AdminHomePage()),
+          );
           break;
 
         case 'bod':
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomescreenBod()),
+            MaterialPageRoute(builder: (context) => const HomescreenBod()),
           );
           break;
 
         default:
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
           );
       }
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
     }
   }

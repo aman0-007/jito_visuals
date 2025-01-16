@@ -38,7 +38,7 @@ dependencies:
   ionicons: ^0.2.2
   flutter_inappwebview: ^6.0.0
   flutter_launcher_icons: ^0.14.1
-  mongo_dart: ^0.10.4
+  mongo_dart: ^0.10.3
   shared_preferences: ^2.3.2
 
 dev_dependencies:

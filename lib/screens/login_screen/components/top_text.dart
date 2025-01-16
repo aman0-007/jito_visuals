@@ -4,7 +4,7 @@ import '../animations/change_screen_animation.dart';
 import 'login_content.dart';
 
 class TopText extends StatefulWidget {
-  const TopText({Key? key}) : super(key: key);
+  const TopText({super.key});
 
   @override
   State<TopText> createState() => _TopTextState();

@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CombinedTextWithImage extends StatelessWidget {
+class CombinedTextWithImage extends StatefulWidget {
   const CombinedTextWithImage({super.key});
 
-  String getGreetingMSg() {
+  @override
+  State<CombinedTextWithImage> createState() => _CombinedTextWithImageState();
+}
+
+class _CombinedTextWithImageState extends State<CombinedTextWithImage> {
+  String userName = ''; // Default name if not found
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName(); // Load the name from SharedPreferences
+  }
+
+  Future<void> _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    String fullName = prefs.getString('name') ?? 'Guest'; // Default to 'Guest' if no name is found
+    setState(() {
+      userName = fullName.split(' ').first; // Take the first part of the name
+    });
+  }
+
+
+  String getGreetingMsg() {
     final hour = DateTime.now().hour;
     if (hour < 12) {
       return 'Good Morning';
@@ -58,7 +81,7 @@ class CombinedTextWithImage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 7), // Padding below the greeting text
                   child: Text(
-                    getGreetingMSg(),
+                    getGreetingMsg(),
                     style: TextStyle(
                       fontSize: greetingFontSize,
                       fontWeight: FontWeight.bold,
@@ -66,11 +89,11 @@ class CombinedTextWithImage extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Welcome Text
+                // Welcome Text with User Name
                 Padding(
                   padding: const EdgeInsets.only(top: 10), // Padding for better spacing
                   child: Text(
-                    "Welcome",
+                    "Welcome, $userName",
                     style: TextStyle(
                       fontSize: welcomeFontSize,
                       fontWeight: FontWeight.bold,
@@ -84,7 +107,7 @@ class CombinedTextWithImage extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(imageSize / 2.5), // Circular border
               child: Image.asset(
-                'assets/bod/jito_top.jpg', // Path to your image in the assets
+                'assets/logo/jito.jpg', // Path to your image in the assets
                 width: imageSize, // Responsive width
                 height: imageSize, // Responsive height
                 fit: BoxFit.cover, // Maintain aspect ratio of the image

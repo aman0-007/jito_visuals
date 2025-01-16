@@ -6,11 +6,11 @@ class ErrorDialog extends StatelessWidget {
   final VoidCallback onRetry;
 
   const ErrorDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     required this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class ErrorDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
+              const Icon(
                 Icons.error_outline,
                 color: Colors.red,
                 size: 60,
@@ -107,7 +107,7 @@ class ErrorDialog extends StatelessWidget {
 class FadeTransitionWidget extends StatefulWidget {
   final Widget child;
 
-  const FadeTransitionWidget({Key? key, required this.child}) : super(key: key);
+  const FadeTransitionWidget({super.key, required this.child});
 
   @override
   State<FadeTransitionWidget> createState() => _FadeTransitionWidgetState();

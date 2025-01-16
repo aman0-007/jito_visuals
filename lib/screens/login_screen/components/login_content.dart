@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:jito_visuals/screens/login_screen/components/social_logos.dart';
 
 import '../../../auth/auth_functions.dart';
 import '../../utils/constants.dart';
@@ -14,7 +15,7 @@ enum Screens {
 }
 
 class LoginContent extends StatefulWidget {
-  const LoginContent({Key? key}) : super(key: key);
+  const LoginContent({super.key});
 
   @override
   State<LoginContent> createState() => _LoginContentState();
@@ -30,7 +31,10 @@ class _LoginContentState extends State<LoginContent>
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Widget inputField(String hint, IconData iconData, TextEditingController controller) {
+  Widget inputField(String hint, IconData iconData, TextEditingController controller,
+      {bool isPassword = false}) {
+    ValueNotifier<bool> isPasswordHidden = ValueNotifier(true);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
       child: SizedBox(
@@ -40,19 +44,33 @@ class _LoginContentState extends State<LoginContent>
           shadowColor: Colors.black87,
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(30),
-          child: TextField(
-            controller: controller,
-            textAlignVertical: TextAlignVertical.bottom,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              hintText: hint,
-              prefixIcon: Icon(iconData),
-            ),
+          child: ValueListenableBuilder<bool>(
+            valueListenable: isPasswordHidden,
+            builder: (context, isHidden, child) {
+              return TextField(
+                controller: controller,
+                obscureText: isPassword && isHidden,
+                textAlignVertical: TextAlignVertical.bottom,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: hint,
+                  prefixIcon: Icon(iconData),
+                  suffixIcon: isPassword
+                      ? IconButton(
+                    icon: Icon(
+                      isHidden ? Ionicons.eye_off_outline : Ionicons.eye_outline,
+                    ),
+                    onPressed: () => isPasswordHidden.value = !isPasswordHidden.value,
+                  )
+                      : null,
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -82,6 +100,7 @@ class _LoginContentState extends State<LoginContent>
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: Colors.white
           ),
         ),
       ),
@@ -120,20 +139,6 @@ class _LoginContentState extends State<LoginContent>
     );
   }
 
-  Widget logos() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('assets/images/facebook.png'),
-          const SizedBox(width: 24),
-          Image.asset('assets/images/google.png'),
-        ],
-      ),
-    );
-  }
-
   Widget forgotPassword() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 110),
@@ -156,16 +161,16 @@ class _LoginContentState extends State<LoginContent>
     createAccountContent = [
       inputField('Name', Ionicons.person_outline, _nameController),
       inputField('Email', Ionicons.mail_outline, _emailController),
-      inputField('Password', Ionicons.lock_closed_outline, _passwordController),
+      inputField('Password', Ionicons.lock_closed_outline, _passwordController, isPassword: true),
       loginButton(context,'Sign Up', isSignUp: true),
       orDivider(),
-      logos(),
+      SocialLogos(),
     ];
 
     loginContent = [
       inputField('Email', Ionicons.mail_outline, _emailController),
-      inputField('Password', Ionicons.lock_closed_outline, _passwordController),
-      loginButton(context,'Sign Up'),
+      inputField('Password', Ionicons.lock_closed_outline, _passwordController, isPassword: true),
+      loginButton(context,'Log In'),
       forgotPassword(),
     ];
 
