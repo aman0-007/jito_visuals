@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:jito_visuals/screens/users/ADMIN/admin_home.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -11,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const AdminHomePage()),
@@ -27,8 +29,34 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/logo/jito.jpg"),
-            Text(""),
+            Expanded(
+                child: Center(
+                    child: Image.asset(
+                        "assets/logo/jito.jpg")
+                ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 10.0),
+              child: Column(
+                children: [
+                  Text(
+                      "JITO VISUALS",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14
+                      ),
+                  ),
+                  Text(
+                    "Version 1.0.0",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 11
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
