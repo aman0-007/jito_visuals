@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 class CombinedTextWithImage extends StatefulWidget {
   const CombinedTextWithImage({super.key});
@@ -9,22 +9,7 @@ class CombinedTextWithImage extends StatefulWidget {
 }
 
 class _CombinedTextWithImageState extends State<CombinedTextWithImage> {
-  String userName = ''; // Default name if not found
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserName(); // Load the name from SharedPreferences
-  }
-
-  Future<void> _loadUserName() async {
-    final prefs = await SharedPreferences.getInstance();
-    String fullName = prefs.getString('name') ?? 'Guest'; // Default to 'Guest' if no name is found
-    setState(() {
-      userName = fullName.split(' ').first; // Take the first part of the name
-    });
-  }
-
+  final box = GetStorage();
 
   String getGreetingMsg() {
     final hour = DateTime.now().hour;
@@ -93,7 +78,7 @@ class _CombinedTextWithImageState extends State<CombinedTextWithImage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10), // Padding for better spacing
                   child: Text(
-                    "Welcome, $userName",
+                    "Welcome, $box.read('fname')",
                     style: TextStyle(
                       fontSize: welcomeFontSize,
                       fontWeight: FontWeight.bold,

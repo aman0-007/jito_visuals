@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../logout.dart';
 import '../components/banner.dart';
 import '../components/bodtop.dart';
 import '../components/buttons.dart';
@@ -68,7 +66,6 @@ class HomescreenAdminContent extends StatelessWidget {
                   url: "https://app.powerbi.com/view?r=eyJrIjoiZmJiMjE0MzktOGRhNi00OGJkLTkzZjAtYWYwODMwZjM2ZDFkIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9",
                   imageUrl: "assets/zone/jGujarat.jpg", // Icon for Gujarat Zone Events Overview
                 ),
-                LogoutButton(),
 
               ],
             ),

@@ -1,172 +1,117 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/login_screen/components/custom_snackbar.dart';
-import '../screens/login_screen/login_screen.dart';
-import '../screens/users/ADMIN/admin_home.dart';
-import '../screens/users/BOD/homescreen_bod.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:jito_visuals/screens/afteronboard/afteronboard_screen.dart';
+import 'package:jito_visuals/screens/contants/bottomnavigation.dart';
+import 'package:jito_visuals/screens/contants/screen_change_anim.dart';
+import '../screens/contants/custom_snackbar.dart';
 import 'mongo_service.dart';
 
 class AuthFunctions {
-  Future<void> signUpUser(
-      BuildContext context, String userType, String name, String email, String password) async {
-    // Check for empty fields
-    if (name.isEmpty || email.isEmpty || password.isEmpty) {
-      CustomSnackbar.showSnackbar(
-        context,
-        'All fields are required!',
-        backgroundColor: Colors.red,
-      );
+  final box = GetStorage();
+
+  Future<void> signUpUser(BuildContext context, String fname, String lname, String email, int number, String password) async {
+    if (fname.isEmpty || email.isEmpty || password.isEmpty || lname.isEmpty || number.isNaN) {
+      CustomSnackbar.showSnackbar(context, 'All fields are required!', backgroundColor: Colors.red);
       return;
     }
 
+    String hashedPassword = hashPassword(password);
     try {
       await MongoService.insertUser(
-        name: name,
+        context: context,
+        fname: fname,
+        lname: lname,
         email: email,
-        password: password,
-        usertype: userType,
-      );
-
-      // Success snackbar
-      CustomSnackbar.showSnackbar(
-        context,
-        'User registered successfully!',
-        backgroundColor: Colors.green,
+        number: number,
+        password: hashedPassword,
       );
     } catch (e) {
-      // Error snackbar
-      CustomSnackbar.showSnackbar(
-        context,
-        'Error occurred while registering: $e',
-        backgroundColor: Colors.red,
-      );
-
+      CustomSnackbar.showSnackbar(context, 'Error: $e', backgroundColor: Colors.red);
       print(e);
     }
   }
 
   Future<void> loginUser(BuildContext context, String email, String password) async {
-    // Check for empty fields
     if (email.isEmpty || password.isEmpty) {
-      CustomSnackbar.showSnackbar(
-        context,
-        'Email and password are required!',
-        backgroundColor: Colors.red,
-      );
+      CustomSnackbar.showSnackbar(context, 'Email and password are required!', backgroundColor: Colors.red);
       return;
     }
+    String hashedPassword = hashPassword(password);
 
     try {
       final users = await MongoService.fetchAllUsers();
-
-      // Find user by email and password
       final user = users.firstWhere(
-            (user) => user['email'] == email && user['password'] == password,
+            (user) => user['email'] == email && user['password'] == hashedPassword,
         orElse: () => {},
       );
 
       if (user.isEmpty) {
-        // Invalid credentials snackbar
-        CustomSnackbar.showSnackbar(
-          context,
-          'Invalid email or password',
-          backgroundColor: Colors.red,
-        );
+        CustomSnackbar.showSnackbar(context, 'Invalid email or password', backgroundColor: Colors.red);
         return;
       }
 
-      // Determine user type
-      final userType = user['userType'];
+      Map<String, dynamic> userData = {
+        'isLoggedIn': true,
+        'userType': user['userType'],
+        'fname': user['first_name'],
+        'lname': user['last_name'],
+        'email': user['email'],
+        'mobile_no': user['mobile_no'].toString(),
+      };
+      await box.write('user_data', userData);
+      await box.save();
+      print("Stored user data: ${box.read('user_data')}");
 
-      // Save login status in SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', true);
-      await prefs.setString('userType', userType);
-      await prefs.setString('name', user['name']);
-
-      switch (userType) {
+      switch (userData['userType']) {
         case 'admin':
-        // Admin-specific snackbar
-          CustomSnackbar.showSnackbar(
-            context,
-            'Welcome back, Admin!',
-            backgroundColor: Colors.green,
-          );
-
-          // Navigate to admin home screen
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const AdminHomePage()),
-          );
+          CustomSnackbar.showSnackbar(context, 'Welcome back, Admin!', backgroundColor: Colors.green);
+          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
           break;
-
         case 'bod':
-        // User-specific snackbar
-          CustomSnackbar.showSnackbar(
-            context,
-            'Welcome back, BOD!',
-            backgroundColor: Colors.blue,
-          );
-
-          // Navigate to BOD home screen
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const HomescreenBod()),
-          );
+          CustomSnackbar.showSnackbar(context, 'Welcome back, BOD!', backgroundColor: Colors.blue);
+          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
           break;
-
+        case 'PROJECT':
+          CustomSnackbar.showSnackbar(context, 'Welcome back, BOD!', backgroundColor: Colors.blue);
+          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
+          break;
         default:
-        // Unknown user type snackbar
-          CustomSnackbar.showSnackbar(
-            context,
-            'Unknown user type. Please contact support.',
-            backgroundColor: Colors.orange,
-          );
-          break;
+          CustomSnackbar.showSnackbar(context, 'User not verified!\nPlease contact Admin.', backgroundColor: Colors.orange);
       }
     } catch (e) {
-      // Error snackbar
-      CustomSnackbar.showSnackbar(
-        context,
-        'Error occurred while logging in: $e',
-        backgroundColor: Colors.red,
-      );
+      CustomSnackbar.showSnackbar(context, 'Error occurred while logging in: $e', backgroundColor: Colors.red);
     }
   }
 
   Future<void> checkLoginStatus(BuildContext context) async {
-    final prefs = await SharedPreferences.getInstance();
-    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    final userData = box.read('user_data') ?? {};
+    print("Stored user data at startup: $userData");
 
-    if (isLoggedIn) {
-      final userType = prefs.getString('userType');
-
-      switch (userType) {
+    if (userData['isLoggedIn'] == true) {
+      switch (userData['userType']) {
         case 'admin':
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => AdminHomePage()),
-          );
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TripLinkBottomNavigation()));
           break;
-
         case 'bod':
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const HomescreenBod()),
-          );
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const TripLinkBottomNavigation()));
           break;
-
+        case 'PROJECT':
+          CustomSnackbar.showSnackbar(context, 'Welcome back, BOD!', backgroundColor: Colors.blue);
+          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
+          break;
         default:
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
-          );
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfteronboardScreen()));
       }
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfteronboardScreen()));
     }
+  }
+
+  String hashPassword(String password) {
+    var bytes = utf8.encode(password);
+    var digest = sha256.convert(bytes);
+    return digest.toString();
   }
 }

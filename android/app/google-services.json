@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "997923251071",
+    "project_id": "jito-visuals",
+    "storage_bucket": "jito-visuals.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997923251071:android:e83c51adbcd0e320edb04a",
+        "android_client_info": {
+          "package_name": "com.example.jito_visuals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997923251071-6q1pd77mo8eistpsk7gv4dg6p4t5pa4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jito_visuals",
+            "certificate_hash": "f4ee40313f424292ab47b470596937648df8fa84"
+          }
+        },
+        {
+          "client_id": "997923251071-oa9n2ss0kbhrafg0vh0662m0gj2mj4jh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwJhR6jUmxXPsRjZgCK1hvAwOzhGNcSb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997923251071-oa9n2ss0kbhrafg0vh0662m0gj2mj4jh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "997923251071-7skgcskaacvmv318e3ognoa5pt5b69h5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jitoVisuals"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

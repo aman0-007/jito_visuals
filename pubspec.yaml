@@ -39,7 +39,16 @@ dependencies:
   flutter_inappwebview: ^6.0.0
   flutter_launcher_icons: ^0.14.1
   mongo_dart: ^0.10.3
-  shared_preferences: ^2.3.2
+  flutter_svg: ^2.0.17
+  provider: ^6.1.2
+  image_picker: ^1.1.2
+  url_launcher: ^6.3.1
+  crypto: ^3.0.6
+  get_storage: ^2.1.1
+  firebase_core: ^3.11.0
+  firebase_auth: ^5.4.2
+  google_sign_in: ^6.2.2
+  firebase_ui_auth: ^1.16.1
 
 dev_dependencies:
   flutter_test:
