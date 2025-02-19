@@ -3,13 +3,15 @@ import 'package:jito_visuals/screens/afteronboard/afteronboard.dart';
 import '../onboard/theme/colors.dart';
 
 class AfteronboardScreen extends StatelessWidget {
+  const AfteronboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   SplashColors.darkBlue,
@@ -20,7 +22,7 @@ class AfteronboardScreen extends StatelessWidget {
               )
             ),
           ),
-          Center(child: Afteronboard()),
+          const Center(child: Afteronboard()),
         ],
       ),
     );

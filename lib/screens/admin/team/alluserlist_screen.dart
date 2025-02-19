@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jito_visuals/screens/admin/team/alluserlist.dart';
 
 class AlluserlistScreen extends StatelessWidget {
+  const AlluserlistScreen({super.key});
+
   @override
   Widget build(BuildContext context){
     final theme = Theme.of(context);
@@ -12,13 +14,13 @@ class AlluserlistScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: (){
             Navigator.pop(context);
           },
         ),
       ),
-      body: Alluserlist(),
+      body: const Alluserlist(),
     );
   }
 }

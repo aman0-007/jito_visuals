@@ -4,7 +4,7 @@ import 'package:jito_visuals/screens/forgotpassword/otpfields.dart';
 import 'package:jito_visuals/screens/forgotpassword/otpvalidation.dart';
 
 class EnterOtp extends StatefulWidget {
-  const EnterOtp({Key? key}) : super(key: key);
+  const EnterOtp({super.key});
 
   @override
   State<EnterOtp> createState() => _EnterOtpState();
@@ -21,22 +21,22 @@ class _EnterOtpState extends State<EnterOtp> {
   final FocusNode _focusNode3 = FocusNode();
   final FocusNode _focusNode4 = FocusNode();
 
-  bool _isButtonPressed = false;
+  final bool _isButtonPressed = false;
   bool _isResendEnabled = false;
 
   void _validateOtp() {
     final enteredOtp = "${_otpController1.text}${_otpController2.text}${_otpController3.text}${_otpController4.text}";
     if (enteredOtp == "1234") {
-      print("OTP Validated Successfully!");
+      //print("OTP Validated Successfully!");
     } else {
-      print("Invalid OTP");
+      //print("Invalid OTP");
     }
   }
 
   void _resendOtp() {
     if (_isResendEnabled) {
       // Resend OTP logic
-      print("OTP resent");
+      //print("OTP resent");
     }
   }
 
@@ -56,9 +56,9 @@ class _EnterOtpState extends State<EnterOtp> {
                 OtpField(controller: _otpController4, focusNode: _focusNode4, prevFocusNode: _focusNode3),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             OtpValidationButton(isButtonPressed: _isButtonPressed, onTap: _validateOtp),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             CountdownAndResend(onResendEnabled: () {
               setState(() {
                 _isResendEnabled = true;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import '../components/internet_error_dialogue.dart';
+import '../../contants/internet_error_dialogue.dart';
 
 class CustomWebView extends StatefulWidget {
   final String url;

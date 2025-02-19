@@ -6,10 +6,10 @@ class OtpValidationButton extends StatelessWidget {
   final VoidCallback onTap;
 
   const OtpValidationButton({
-    Key? key,
+    super.key,
     required this.isButtonPressed,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +22,8 @@ class OtpValidationButton extends StatelessWidget {
         duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           color: isButtonPressed
-              ? Color(0xFF4267B2).withOpacity(0.8)
-              : Color(0xFF4267B2),
+              ? const Color(0xFF4267B2).withOpacity(0.8)
+              : const Color(0xFF4267B2),
           borderRadius: BorderRadius.circular(8),
           boxShadow: isButtonPressed
               ? []

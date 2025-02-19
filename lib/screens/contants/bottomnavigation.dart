@@ -23,8 +23,8 @@ class _TripLinkBottomNavigationState extends State<TripLinkBottomNavigation> {
   }
 
   final pages = [
-    Dashboard(),
-    ProfilePage(),
+    const Dashboard(),
+    const ProfilePage(),
   ];
 
   @override

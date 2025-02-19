@@ -7,7 +7,7 @@ import 'package:jito_visuals/screens/admin/Dashboard/widgets/motivationalquotewi
 import 'package:provider/provider.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  const Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +23,14 @@ class Dashboard extends StatelessWidget {
           vertical: 24.0,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             DashboardAppBar(isDarkMode: isDarkMode, themeProvider: themeProvider),
             const SizedBox(height: 24),
             const GreetingWidget(),
             const SizedBox(height: 24),
-            DashboardActions(isSmallScreen: isSmallScreen),
+            Center(child: DashboardActions(isSmallScreen: isSmallScreen)),
             const SizedBox(height: 24),
             const MotivationalQuoteWidget(),
           ],

@@ -5,7 +5,7 @@ import 'package:jito_visuals/screens/register/components/textfield.dart';
 import '../register/components/button.dart';
 
 class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
+  const ForgotPassword({super.key});
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -38,12 +38,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               Navigator.push(
                 context,
                 AnimatedPageTransition(
-                  page: EnterOtpScreen(),
+                  page: const EnterOtpScreen(),
                   transitionType: TransitionType.slideFromRight,
                 ),
               );
             },
-            padding: EdgeInsets.only(top: 13, bottom: 5),
+            padding: const EdgeInsets.only(top: 13, bottom: 5),
           ),
 
           SizedBox(height: screenHeight * 0.009), // Space after the OTP button

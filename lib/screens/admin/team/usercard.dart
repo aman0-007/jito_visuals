@@ -7,7 +7,7 @@ class UserCard extends StatefulWidget {
   final Map<String, dynamic> user;
   final Function(String) onUserTypeChanged;
 
-  const UserCard({Key? key, required this.user, required this.onUserTypeChanged}) : super(key: key);
+  const UserCard({super.key, required this.user, required this.onUserTypeChanged});
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -143,7 +143,7 @@ class _UserCardState extends State<UserCard> {
                                                 widget.onUserTypeChanged(newType);
                                               } else {
                                                 ScaffoldMessenger.of(context).showSnackBar(
-                                                  SnackBar(content: Text("Failed to update user type")),
+                                                  const SnackBar(content: Text("Failed to update user type")),
                                                 );
                                               }
                                             },

@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MyHomePage()),
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
       );
     });
   }
@@ -84,14 +84,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         child: Container(
                           width: screenSize.width * 0.6, // Responsive width
                           height: screenSize.width * 0.6, // Maintain aspect ratio
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxWidth: 300, // Maximum width
                             maxHeight: 300, // Maximum height
                             minWidth: 150, // Minimum width
                             minHeight: 150, // Minimum height
                           ),
                           child: Image.asset(
-                            "assets/logo/jito.jpg",
+                            "assets/logo/jito.png",
                             fit: BoxFit.contain,
                           ),
                         ),

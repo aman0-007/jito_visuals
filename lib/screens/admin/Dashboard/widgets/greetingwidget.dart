@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:get_storage/get_storage.dart';
 
 class GreetingWidget extends StatefulWidget {
-  const GreetingWidget({Key? key}) : super(key: key);
+  const GreetingWidget({super.key});
 
   @override
   State<GreetingWidget> createState() => _GreetingWidgetState();

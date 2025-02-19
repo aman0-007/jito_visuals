@@ -34,15 +34,15 @@ class AnimatedPageTransition extends PageRouteBuilder {
         case TransitionType.fade:
           return _buildFadeTransition(animation, secondaryAnimation, child);
         case TransitionType.slide:
-          return _buildSlideTransition(animation, secondaryAnimation, child, Offset(0.0, 1.0)); // Slide from bottom
+          return _buildSlideTransition(animation, secondaryAnimation, child, const Offset(0.0, 1.0)); // Slide from bottom
         case TransitionType.slideFromLeft:
-          return _buildSlideTransition(animation, secondaryAnimation, child, Offset(-1.0, 0.0)); // Slide from left
+          return _buildSlideTransition(animation, secondaryAnimation, child, const Offset(-1.0, 0.0)); // Slide from left
         case TransitionType.slideFromRight:
-          return _buildSlideTransition(animation, secondaryAnimation, child, Offset(1.0, 0.0)); // Slide from right
+          return _buildSlideTransition(animation, secondaryAnimation, child, const Offset(1.0, 0.0)); // Slide from right
         case TransitionType.slideFromTop:
-          return _buildSlideTransition(animation, secondaryAnimation, child, Offset(0.0, -1.0)); // Slide from top
+          return _buildSlideTransition(animation, secondaryAnimation, child, const Offset(0.0, -1.0)); // Slide from top
         case TransitionType.slideFromBottom:
-          return _buildSlideTransition(animation, secondaryAnimation, child, Offset(0.0, 1.0)); // Slide from bottom
+          return _buildSlideTransition(animation, secondaryAnimation, child, const Offset(0.0, 1.0)); // Slide from bottom
         case TransitionType.scale:
           return _buildScaleTransition(animation, secondaryAnimation, child);
         case TransitionType.rotate:
@@ -158,7 +158,7 @@ class AnimatedPageTransition extends PageRouteBuilder {
 
   static Widget _buildBounceTransition(Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
     return SlideTransition(
-      position: Tween(begin: Offset(0, 1), end: Offset.zero)
+      position: Tween(begin: const Offset(0, 1), end: Offset.zero)
           .chain(CurveTween(curve: Curves.bounceOut))
           .animate(animation),
       child: child,
@@ -168,7 +168,7 @@ class AnimatedPageTransition extends PageRouteBuilder {
   static Widget _buildSlideFadeTransition(Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
     return FadeTransition(
       opacity: animation,
-      child: SlideTransition(position: animation.drive(Tween(begin: Offset(1.0, 0.0), end: Offset.zero)), child: child),
+      child: SlideTransition(position: animation.drive(Tween(begin: const Offset(1.0, 0.0), end: Offset.zero)), child: child),
     );
   }
 

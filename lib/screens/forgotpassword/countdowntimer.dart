@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CountdownAndResend extends StatefulWidget {
   final VoidCallback onResendEnabled;
 
-  const CountdownAndResend({Key? key, required this.onResendEnabled}) : super(key: key);
+  const CountdownAndResend({super.key, required this.onResendEnabled});
 
   @override
   State<CountdownAndResend> createState() => _CountdownAndResendState();

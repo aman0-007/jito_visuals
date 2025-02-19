@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DashedLineWithText extends StatelessWidget {
   final String text;
 
-  DashedLineWithText({required this.text});
+  const DashedLineWithText({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -13,20 +13,20 @@ class DashedLineWithText extends StatelessWidget {
           child: Container(
             height: 1,
             color: Colors.black, // The color of the dashed line
-            margin: EdgeInsets.symmetric(horizontal: 8.0), // Space between line and text
-            child: DashLine(),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0), // Space between line and text
+            child: const DashLine(),
           ),
         ),
         Text(
           text,
-          style: TextStyle(fontWeight: FontWeight.bold), // Styling for the text
+          style: const TextStyle(fontWeight: FontWeight.bold), // Styling for the text
         ),
         Expanded(
           child: Container(
             height: 1,
             color: Colors.black,
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
-            child: DashLine(),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: const DashLine(),
           ),
         ),
       ],
@@ -35,6 +35,8 @@ class DashedLineWithText extends StatelessWidget {
 }
 
 class DashLine extends StatelessWidget {
+  const DashLine({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -43,7 +45,7 @@ class DashLine extends StatelessWidget {
           width: 8, // width of each dash
           height: 1,
           color: Colors.black, // Dash color
-          margin: EdgeInsets.symmetric(horizontal: 2.0),
+          margin: const EdgeInsets.symmetric(horizontal: 2.0),
         );
       }),
     );

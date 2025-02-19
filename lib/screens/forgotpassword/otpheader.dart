@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OTPHeader extends StatelessWidget {
+  const OTPHeader({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Column(

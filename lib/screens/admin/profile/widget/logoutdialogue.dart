@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:jito_visuals/auth/google_auth.dart';
 import 'package:jito_visuals/screens/afteronboard/afteronboard_screen.dart';
 import 'package:jito_visuals/screens/contants/custom_snackbar.dart';
 
@@ -17,19 +18,19 @@ void showLogoutDialog(BuildContext context) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.warning_amber_rounded, size: 40, color: Colors.red),
-              SizedBox(height: 10),
-              Text(
+              const Icon(Icons.warning_amber_rounded, size: 40, color: Colors.red),
+              const SizedBox(height: 10),
+              const Text(
                 "Logout",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8),
-              Text(
+              const SizedBox(height: 8),
+              const Text(
                 "Do you really want to logout?",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14),
               ),
-              SizedBox(height: 18),
+              const SizedBox(height: 18),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -40,38 +41,38 @@ void showLogoutDialog(BuildContext context) {
                         Navigator.pop(context); // Close dialog
                       },
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         backgroundColor: Colors.grey[300],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text("No", style: TextStyle(color: Colors.black, fontSize: 14)),
+                      child: const Text("No", style: TextStyle(color: Colors.black, fontSize: 14)),
                     ),
                   ),
                   SizedBox(
-                    width: 90, // Smaller button width
+                    width: 90,
                     child: TextButton(
                       onPressed: () async {
-                        final box = GetStorage();
-                        await box.erase(); // Clear all stored data
+
+                        await GetStorage().erase();
+                        AuthService().signOut();
 
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context) => AfteronboardScreen()),
-                              (route) => false, // Remove all previous routes
+                              (route) => false,
                         );
-
                         CustomSnackbar.showSnackbar(context, "Logged out!!", backgroundColor: Colors.orange);
                       },
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         backgroundColor: Colors.red,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text("Yes", style: TextStyle(color: Colors.white, fontSize: 14)),
+                      child: const Text("Yes", style: TextStyle(color: Colors.white, fontSize: 14)),
                     ),
                   ),
                 ],

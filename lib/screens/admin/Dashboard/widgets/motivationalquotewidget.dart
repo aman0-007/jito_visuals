@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class MotivationalQuoteWidget extends StatefulWidget {
-  const MotivationalQuoteWidget({Key? key}) : super(key: key);
+  const MotivationalQuoteWidget({super.key});
 
   @override
   State<MotivationalQuoteWidget> createState() => _MotivationalQuoteWidgetState();

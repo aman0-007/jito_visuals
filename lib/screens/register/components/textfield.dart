@@ -6,7 +6,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
 
-  CustomTextField({
+  const CustomTextField({super.key,
     required this.icon,
     required this.hintText,
     this.keyboardType = TextInputType.text,
@@ -24,7 +24,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5), // #f5f5f5 background color
+        color: const Color(0xFFF5F5F5), // #f5f5f5 background color
         borderRadius: BorderRadius.circular(12), // Rounded corners
       ),
       child: TextField(
@@ -34,19 +34,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
         decoration: InputDecoration(
           prefixIcon: Icon(
             widget.icon,
-            color: Color(0xFF818181), // #818181 icon color
+            color: const Color(0xFF818181), // #818181 icon color
           ),
           hintText: widget.hintText,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Color(0xFFB0B0B0), // Light grey hint text
           ),
           border: InputBorder.none, // No border
-          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16), // Padding inside the text field
+          contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16), // Padding inside the text field
           suffixIcon: widget.keyboardType == TextInputType.visiblePassword
               ? IconButton(
             icon: Icon(
               _obscureText ? Icons.visibility_off : Icons.visibility,
-              color: Color(0xFF818181), // Icon color
+              color: const Color(0xFF818181), // Icon color
             ),
             onPressed: () {
               setState(() {

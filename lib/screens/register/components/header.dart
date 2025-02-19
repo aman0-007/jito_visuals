@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class RegisterHeader extends StatelessWidget {
+  const RegisterHeader({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start, // Align to the left
       children: [
         Row(
-          children: const [
+          children: [
             // Main title "Register"
             Padding(
-              padding: const EdgeInsets.only(left: 30.0),
+              padding: EdgeInsets.only(left: 30.0),
               child: Text(
                 'Register',
                 style: TextStyle(
@@ -26,7 +28,7 @@ class RegisterHeader extends StatelessWidget {
           children: [
             // Sub-title in smaller size
             Padding(
-              padding: const EdgeInsets.only(left: 30.0),
+              padding: EdgeInsets.only(left: 30.0),
               child: Text(
                 'Create an account to get started',
                 style: TextStyle(

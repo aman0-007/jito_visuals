@@ -3,6 +3,8 @@ import 'package:jito_visuals/screens/forgotpassword/enterotp.dart';
 import 'otpheader.dart';
 
 class EnterOtpScreen extends StatelessWidget {
+  const EnterOtpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +12,7 @@ class EnterOtpScreen extends StatelessWidget {
         backgroundColor: Colors.transparent, // No background color
         elevation: 0, // Remove shadow/elevation
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black), // Back arrow icon
+          icon: const Icon(Icons.arrow_back, color: Colors.black), // Back arrow icon
           onPressed: () {
             Navigator.pop(context); // Navigate back to the previous screen
           },
@@ -19,7 +21,7 @@ class EnterOtpScreen extends StatelessWidget {
       body: Column(
         children: [
           OTPHeader(),
-          EnterOtp(),
+          const EnterOtp(),
         ],
       ),
     );

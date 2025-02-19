@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ButtonAnimation extends StatefulWidget {
   final Widget child;
 
-  const ButtonAnimation({Key? key, required this.child}) : super(key: key);
+  const ButtonAnimation({super.key, required this.child});
 
   @override
   _ButtonAnimationState createState() => _ButtonAnimationState();

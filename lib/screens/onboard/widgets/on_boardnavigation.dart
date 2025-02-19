@@ -55,7 +55,7 @@ class OnboardNavigation extends StatelessWidget{
                   Navigator.push(
                     context,
                     AnimatedPageTransition(
-                      page: AfteronboardScreen(),
+                      page: const AfteronboardScreen(),
                       transitionType: TransitionType.slideFromRight,
                     )
                   );

@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
+import 'package:bcrypt/bcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jito_visuals/screens/afteronboard/afteronboard_screen.dart';
@@ -11,8 +10,9 @@ import 'mongo_service.dart';
 class AuthFunctions {
   final box = GetStorage();
 
-  Future<void> signUpUser(BuildContext context, String fname, String lname, String email, int number, String password) async {
-    if (fname.isEmpty || email.isEmpty || password.isEmpty || lname.isEmpty || number.isNaN) {
+  Future<void> signUpUser(
+      BuildContext context, String fname, String lname, String email, int number, String password) async {
+    if (fname.isEmpty || lname.isEmpty || email.isEmpty || password.isEmpty || number <= 0) {
       CustomSnackbar.showSnackbar(context, 'All fields are required!', backgroundColor: Colors.red);
       return;
     }
@@ -29,25 +29,20 @@ class AuthFunctions {
       );
     } catch (e) {
       CustomSnackbar.showSnackbar(context, 'Error: $e', backgroundColor: Colors.red);
-      print(e);
+      //print(e);
     }
   }
+
 
   Future<void> loginUser(BuildContext context, String email, String password) async {
     if (email.isEmpty || password.isEmpty) {
       CustomSnackbar.showSnackbar(context, 'Email and password are required!', backgroundColor: Colors.red);
       return;
     }
-    String hashedPassword = hashPassword(password);
 
     try {
-      final users = await MongoService.fetchAllUsers();
-      final user = users.firstWhere(
-            (user) => user['email'] == email && user['password'] == hashedPassword,
-        orElse: () => {},
-      );
-
-      if (user.isEmpty) {
+      final user = await MongoService.getUserByEmail(email);
+      if (user == null || !verifyPassword(password, user['password'])) {
         CustomSnackbar.showSnackbar(context, 'Invalid email or password', backgroundColor: Colors.red);
         return;
       }
@@ -62,24 +57,8 @@ class AuthFunctions {
       };
       await box.write('user_data', userData);
       await box.save();
-      print("Stored user data: ${box.read('user_data')}");
 
-      switch (userData['userType']) {
-        case 'admin':
-          CustomSnackbar.showSnackbar(context, 'Welcome back, Admin!', backgroundColor: Colors.green);
-          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
-          break;
-        case 'bod':
-          CustomSnackbar.showSnackbar(context, 'Welcome back, BOD!', backgroundColor: Colors.blue);
-          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
-          break;
-        case 'PROJECT':
-          CustomSnackbar.showSnackbar(context, 'Welcome back, BOD!', backgroundColor: Colors.blue);
-          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
-          break;
-        default:
-          CustomSnackbar.showSnackbar(context, 'User not verified!\nPlease contact Admin.', backgroundColor: Colors.orange);
-      }
+      _navigateToHome(context, userData['userType']);
     } catch (e) {
       CustomSnackbar.showSnackbar(context, 'Error occurred while logging in: $e', backgroundColor: Colors.red);
     }
@@ -87,31 +66,33 @@ class AuthFunctions {
 
   Future<void> checkLoginStatus(BuildContext context) async {
     final userData = box.read('user_data') ?? {};
-    print("Stored user data at startup: $userData");
+    //print("Stored user data at startup: $userData");
 
     if (userData['isLoggedIn'] == true) {
-      switch (userData['userType']) {
-        case 'admin':
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TripLinkBottomNavigation()));
-          break;
-        case 'bod':
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const TripLinkBottomNavigation()));
-          break;
-        case 'PROJECT':
-          CustomSnackbar.showSnackbar(context, 'Welcome back, BOD!', backgroundColor: Colors.blue);
-          Navigator.push(context, AnimatedPageTransition(page: TripLinkBottomNavigation(), transitionType: TransitionType.zoom));
-          break;
-        default:
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfteronboardScreen()));
-      }
+      _navigateToHome(context, userData['userType']);
     } else {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfteronboardScreen()));
     }
   }
 
+  void _navigateToHome(BuildContext context, String userType) {
+    if (['admin', 'BOD', 'PROJECT', 'APEX', 'ZONE'].contains(userType)) {
+      CustomSnackbar.showSnackbar(context, 'Welcome back!', backgroundColor: Colors.green);
+      Navigator.pushReplacement(
+        context,
+        AnimatedPageTransition(page: const TripLinkBottomNavigation(), transitionType: TransitionType.zoom),
+      );
+    } else {
+      CustomSnackbar.showSnackbar(context, 'User not verified!\nPlease contact Admin.', backgroundColor: Colors.orange);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfteronboardScreen()));
+    }
+  }
+
   String hashPassword(String password) {
-    var bytes = utf8.encode(password);
-    var digest = sha256.convert(bytes);
-    return digest.toString();
+    return BCrypt.hashpw(password, BCrypt.gensalt());
+  }
+
+  bool verifyPassword(String password, String hashedPassword) {
+    return BCrypt.checkpw(password, hashedPassword);
   }
 }

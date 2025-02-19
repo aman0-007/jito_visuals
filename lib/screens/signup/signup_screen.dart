@@ -3,6 +3,8 @@ import 'package:jito_visuals/screens/signup/signup.dart';
 import 'components/signupheader.dart';
 
 class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
+
   @override
   Widget build(BuildContext context){
     final theme = Theme.of(context);
@@ -13,7 +15,7 @@ class SignupScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: (){
             Navigator.pop(context);
           },
@@ -21,7 +23,7 @@ class SignupScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SignupHeader(),
+          const SignupHeader(),
           Signup(),
         ],
       ),

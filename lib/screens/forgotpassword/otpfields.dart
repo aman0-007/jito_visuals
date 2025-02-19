@@ -7,12 +7,12 @@ class OtpField extends StatelessWidget {
   final FocusNode? prevFocusNode;
 
   const OtpField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.focusNode,
     this.nextFocusNode,
     this.prevFocusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class OtpField extends StatelessWidget {
           // Define the focused border color (when focused)
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.orangeAccent, width: 2),
+            borderSide: const BorderSide(color: Colors.orangeAccent, width: 2),
           ),
           counterText: "",
         ),

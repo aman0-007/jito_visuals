@@ -3,7 +3,7 @@ import 'package:jito_visuals/screens/onboard/theme/colors.dart';
 import 'package:jito_visuals/screens/users/BOD/customwebview.dart';
 
 class DashboardchartScreen extends StatelessWidget {
-  const DashboardchartScreen({Key? key}) : super(key: key);
+  const DashboardchartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class DashboardchartScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: (){
             Navigator.pop(context);
           },

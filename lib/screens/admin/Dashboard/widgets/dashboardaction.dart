@@ -8,7 +8,7 @@ import 'package:jito_visuals/screens/users/BOD/customwebview.dart';
 
 class DashboardActions extends StatelessWidget {
   final bool isSmallScreen;
-  const DashboardActions({required this.isSmallScreen, Key? key}) : super(key: key);
+  const DashboardActions({required this.isSmallScreen, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,28 @@ class DashboardActions extends StatelessWidget {
 
     if (userType == 'admin') {
       dashboardActions = [
-        DashboardActionButton(icon: Icons.calendar_today, label: 'Sameeksha Scorecard', color: const Color(0xFF00537A)),
-        DashboardActionButton(icon: Icons.task_alt, label: 'Events Overview', color: const Color(0xFFF5A201)),
+        DashboardActionButton(
+            icon: Icons.calendar_today,
+            label: 'Sameeksha Scorecard',
+            color: const Color(0xFF00537A),
+          onTap: () {
+            Navigator.of(context).push(CustomWebViewPageRoute(
+              url: 'https://app.powerbi.com/view?r=eyJrIjoiMmNlMGIzMDQtYjMwMy00ZGQ0LTllZjItNzQxZjEwOGU2MDI0IiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+              title: 'Sameeksha Scorecard',
+            ));
+          },
+        ),
+        DashboardActionButton(
+            icon: Icons.task_alt,
+            label: 'Events Overview',
+            color: const Color(0xFFF5A201),
+          onTap: () {
+            Navigator.of(context).push(CustomWebViewPageRoute(
+              url: 'https://app.powerbi.com/view?r=eyJrIjoiNmJmMDU3MDktOGU1Ny00OTEyLTkxYjMtNDRmNzlmMTQ4MGZlIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+              title: 'Events Overview',
+            ));
+          },
+        ),
         DashboardActionButton(
           icon: Icons.bar_chart,
           label: 'Dashboard',
@@ -29,7 +49,7 @@ class DashboardActions extends StatelessWidget {
             Navigator.push(
               context,
               AnimatedPageTransition(
-                page: DashboardchartScreen(),
+                page: const DashboardchartScreen(),
                 transitionType: TransitionType.slideFromBottom,
               ),
             );
@@ -53,9 +73,9 @@ class DashboardActions extends StatelessWidget {
     } else if (userType == 'PROJECT') {
       dashboardActions = [
         DashboardActionButton(
-            icon: Icons.task_alt,
-            label: 'Events Overview',
-            color: const Color(0xFFF5A201),
+          icon: Icons.task_alt,
+          label: 'Events Overview',
+          color: const Color(0xFFF5A201),
           onTap: () {
             Navigator.of(context).push(CustomWebViewPageRoute(
               url: 'https://app.powerbi.com/view?r=eyJrIjoiYmEyY2Y3OWUtYzczYi00YjNmLTg5ODEtMjYwZjNkMWNjYzM1IiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
@@ -66,15 +86,25 @@ class DashboardActions extends StatelessWidget {
       ];
     }
 
-    return dashboardActions.isNotEmpty
-        ? GridView.count(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: isSmallScreen ? 2 : 4,
-      crossAxisSpacing: 16,
-      mainAxisSpacing: 16,
-      children: dashboardActions,
-    )
-        : const SizedBox(); // If no actions, return an empty widget
+    if (dashboardActions.isEmpty) {
+      return const SizedBox(); // If no actions, return an empty widget
+    } else if (dashboardActions.length == 1) {
+      return Center(
+        child: SizedBox(
+          width: 150, // Adjust width to match grid items
+          height: 150, // Adjust height to match grid items
+          child: dashboardActions.first,
+        ),
+      );
+    } else {
+      return GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: isSmallScreen ? 2 : 4,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        children: dashboardActions,
+      );
+    }
   }
 }

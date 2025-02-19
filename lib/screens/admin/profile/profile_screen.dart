@@ -5,10 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:jito_visuals/screens/admin/profile/about_screen.dart';
 import 'package:jito_visuals/screens/admin/profile/widget/logoutdialogue.dart';
 import 'package:jito_visuals/screens/onboard/theme/colors.dart';
-import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -77,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final box = GetStorage();
+    //final box = GetStorage();
 
     return Scaffold(
       backgroundColor: isDark ? SplashColors.darkBlue : Colors.grey[50],
@@ -168,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       : null,
                 ),
                 child: _profileImage == null
-                    ? Icon(
+                    ? const Icon(
                   Icons.person,
                   size: 60,
                   color: SplashColors.lightBlue,
@@ -197,8 +196,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   }
 
   Widget _buildUserDetailsSection(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    // final theme = Theme.of(context);
+    // final isDark = theme.brightness == Brightness.dark;
     final box = GetStorage();
 
     return Container(
@@ -400,37 +399,37 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     );
   }
 
-  Future<void> _showEditDialog(BuildContext context, String field) async {
-    final controller = TextEditingController();
-    final theme = Theme.of(context);
-
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Edit $field'),
-        content: TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            labelText: field,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () {
-              // Implement save logic here
-              Navigator.pop(context);
-            },
-            child: const Text('Save'),
-          ),
-        ],
-      ),
-    );
-  }
+  // Future<void> _showEditDialog(BuildContext context, String field) async {
+  //   final controller = TextEditingController();
+  //   final theme = Theme.of(context);
+  //
+  //   return showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: Text('Edit $field'),
+  //       content: TextField(
+  //         controller: controller,
+  //         decoration: InputDecoration(
+  //           labelText: field,
+  //           border: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //           ),
+  //         ),
+  //       ),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: const Text('Cancel'),
+  //         ),
+  //         FilledButton(
+  //           onPressed: () {
+  //             // Implement save logic here
+  //             Navigator.pop(context);
+  //           },
+  //           child: const Text('Save'),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

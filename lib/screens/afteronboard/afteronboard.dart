@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jito_visuals/screens/contants/screen_change_anim.dart';
 import 'package:jito_visuals/screens/register/register_screen.dart';
+import '../contants/custom_snackbar.dart';
 import '../signup/signup_screen.dart';
 
 class Afteronboard extends StatelessWidget {
+  const Afteronboard({super.key});
+
   @override
   Widget build(BuildContext context) {
     final double buttonWidth = MediaQuery.of(context).size.width * 0.8;
@@ -15,7 +18,7 @@ class Afteronboard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Welcome to TripLink!",
+              "Welcome to Jito_Visuals!",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -60,7 +63,7 @@ class Afteronboard extends StatelessWidget {
               ),
               icon: const Icon(Icons.facebook),
               onPressed: () {
-                // Facebook login logic
+                CustomSnackbar.showSnackbar(context, 'Will be added soon!', backgroundColor: Colors.orange);
               },
               label: const Text("Continue with Facebook"),
             ),
@@ -139,7 +142,7 @@ class Afteronboard extends StatelessWidget {
           top: 30, // Adjust as needed for positioning
           left: 7, // Position it towards the left side
           child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               Navigator.pop(context); // Navigate back to the previous screen
             },

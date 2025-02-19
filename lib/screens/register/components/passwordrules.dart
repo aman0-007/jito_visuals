@@ -3,6 +3,8 @@ import 'package:jito_visuals/screens/contants/themes.dart';
 import '../../contants/custom_snackbar.dart';
 
 class PasswordRulesButton extends StatelessWidget {
+  const PasswordRulesButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -13,7 +15,7 @@ class PasswordRulesButton extends StatelessWidget {
           backgroundColor: TripLinkTheme.lightColorScheme.primary,
           textColor: Colors.white,
           //icon: Icons.check_circle,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         );
       },
       child: Container(

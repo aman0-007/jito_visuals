@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 import 'usercard.dart';
 
 class Alluserlist extends StatelessWidget {
-  const Alluserlist({Key? key}) : super(key: key);
+  const Alluserlist({super.key});
 
   void updateUserType(String userId, String newType, BuildContext context) async {
     try {
       await MongoService.updateUserType(context, userId, newType);
       Provider.of<UserListViewModel>(context, listen: false).fetchUsers();
     } catch (e) {
-      print("Error updating userType: $e");
+      //print("Error updating userType: $e");
     }
   }
 

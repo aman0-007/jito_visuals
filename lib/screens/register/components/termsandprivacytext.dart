@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../onboard/theme/colors.dart';
 
 class TermsAndPrivacyText extends StatelessWidget {
+  const TermsAndPrivacyText({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -17,14 +19,14 @@ class TermsAndPrivacyText extends StatelessWidget {
               textAlign: TextAlign.center,
               text: TextSpan(
                 text: "By creating an account or signing in, you have read and agreed to \n",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12, // Regular text size
                   color: SplashColors.darkBlue, // Default text color
                 ),
                 children: [
                   TextSpan(
                     text: 'Privacy Policy',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: SplashColors.brightOrange, // Color for Privacy Policy
                       fontWeight: FontWeight.bold, // Bold text for Privacy Policy
                       fontSize: 13, // Font size for Privacy Policy
@@ -33,7 +35,7 @@ class TermsAndPrivacyText extends StatelessWidget {
                       // Action for Privacy Policy tap
                     },
                   ),
-                  TextSpan(
+                  const TextSpan(
                     text: ' and ',
                     style: TextStyle(
                       color: SplashColors.darkBlue, // Default text color for the 'and'
@@ -42,7 +44,7 @@ class TermsAndPrivacyText extends StatelessWidget {
                   ),
                   TextSpan(
                     text: 'Terms of Service.',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: SplashColors.brightOrange, // Color for Terms of Service
                       fontWeight: FontWeight.bold, // Bold text for Terms of Service
                       fontSize: 13, // Font size for Terms of Service

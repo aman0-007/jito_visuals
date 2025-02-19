@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ResetHeader extends StatelessWidget {
+  const ResetHeader({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Column(

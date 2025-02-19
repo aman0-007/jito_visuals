@@ -44,7 +44,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _currentIndex == 1 ? Color(0xFFfffaff) : Color(0xFFffffff),
+      backgroundColor: _currentIndex == 1 ? const Color(0xFFfffaff) : const Color(0xFFffffff),
       body: SafeArea(
           child: Column(
             children: [
@@ -63,7 +63,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 child: PageView(
                   controller: _pageController,
                   onPageChanged: (index) {
-                    print(_currentIndex);
+                    //print(_currentIndex);
                     setState(() => _currentIndex = index);
                   },
                   children: _pages,

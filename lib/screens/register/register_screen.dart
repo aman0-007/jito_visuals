@@ -3,6 +3,8 @@ import 'package:jito_visuals/screens/register/components/header.dart';
 import 'package:jito_visuals/screens/register/register.dart';
 
 class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -13,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
         backgroundColor: Colors.transparent, // No background color
         elevation: 0, // Remove shadow/elevation
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black), // Back arrow icon
+          icon: const Icon(Icons.arrow_back, color: Colors.black), // Back arrow icon
           onPressed: () {
             Navigator.pop(context); // Navigate back to the previous screen
           },
@@ -21,7 +23,7 @@ class RegisterScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          RegisterHeader(),
+          const RegisterHeader(),
           Register(),
         ],
       ),

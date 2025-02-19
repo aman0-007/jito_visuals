@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
   final double width;
   final EdgeInsetsGeometry padding; // Added padding parameter
 
-  CustomButton({
+  const CustomButton({super.key,
     required this.text,
     required this.onPressed,
     this.buttonColor = SplashColors.lightOrange,
@@ -28,7 +28,7 @@ class CustomButton extends StatelessWidget {
           onPressed: () => onPressed(),
           style: ElevatedButton.styleFrom(
             backgroundColor: buttonColor,
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

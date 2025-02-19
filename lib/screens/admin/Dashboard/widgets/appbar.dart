@@ -9,8 +9,8 @@ class DashboardAppBar extends StatelessWidget {
   const DashboardAppBar({
     required this.isDarkMode,
     required this.themeProvider,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jito_visuals/auth/auth_functions.dart';
-import 'package:jito_visuals/screens/contants/bottomnavigation.dart';
-import 'package:jito_visuals/screens/contants/screen_change_anim.dart';
 import 'package:jito_visuals/screens/register/components/button.dart';
 import 'package:jito_visuals/screens/register/components/dashlinetext.dart';
+import '../contants/custom_snackbar.dart';
 import '../register/components/termsandprivacytext.dart';
 import '../register/components/textfield.dart';
 import 'components/forgotpasswordtext.dart';
@@ -11,6 +10,8 @@ import 'components/forgotpasswordtext.dart';
 class Signup extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  Signup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,27 +27,27 @@ class Signup extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             controller: _emailController,
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           CustomTextField(
             icon: Icons.password_outlined,
             hintText: 'Password',
             keyboardType: TextInputType.visiblePassword,
             controller: _passwordController,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           CustomButton(
             text: 'Sign Up',
             onPressed: () {
               AuthFunctions().loginUser(context, _emailController.text, _passwordController.text);
             },
-            padding: EdgeInsets.only(top: 13, bottom: 5),
+            padding: const EdgeInsets.only(top: 13, bottom: 5),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 20.0),
             child: ForgotPasswordText(),
           ),
-          DashedLineWithText(text: "OR"),
-          SizedBox(height: 20),
+          const DashedLineWithText(text: "OR"),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -80,14 +81,14 @@ class Signup extends StatelessWidget {
                 ),
                 icon: const Icon(Icons.facebook),
                 onPressed: () {
-                  // Facebook login logic
+                  CustomSnackbar.showSnackbar(context, 'Will be added soon!', backgroundColor: Colors.orange);
                 },
                 label: const Text("Facebook"),
               ),
             ],
           ),
-          SizedBox(height: 20),
-          TermsAndPrivacyText(),
+          const SizedBox(height: 20),
+          const TermsAndPrivacyText(),
         ],
       ),
     );
