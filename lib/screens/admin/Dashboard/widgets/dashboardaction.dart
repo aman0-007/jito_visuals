@@ -84,6 +84,20 @@ class DashboardActions extends StatelessWidget {
           },
         ),
       ];
+    } else if (userType == 'APEX') {
+      dashboardActions = [
+        DashboardActionButton(
+          icon: Icons.task_alt,
+          label: 'Apex Scorecard',
+          color: const Color(0xFFF5A201),
+          onTap: () {
+            Navigator.of(context).push(CustomWebViewPageRoute(
+              url: box.read('user_data')?['link'],
+              title: 'Apex Scorecard',
+            ));
+          },
+        ),
+      ];
     }
 
     if (dashboardActions.isEmpty) {
@@ -91,8 +105,8 @@ class DashboardActions extends StatelessWidget {
     } else if (dashboardActions.length == 1) {
       return Center(
         child: SizedBox(
-          width: 150, // Adjust width to match grid items
-          height: 150, // Adjust height to match grid items
+          width: 190, // Adjust width to match grid items
+          height: 190, // Adjust height to match grid items
           child: dashboardActions.first,
         ),
       );

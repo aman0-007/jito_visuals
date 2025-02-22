@@ -4,16 +4,29 @@ import 'package:get_storage/get_storage.dart';
 import 'package:jito_visuals/screens/afteronboard/afteronboard_screen.dart';
 import 'package:jito_visuals/screens/contants/bottomnavigation.dart';
 import 'package:jito_visuals/screens/contants/screen_change_anim.dart';
+import 'package:jito_visuals/screens/register/register.dart';
 import '../screens/contants/custom_snackbar.dart';
 import 'mongo_service.dart';
 
 class AuthFunctions {
   final box = GetStorage();
 
-  Future<void> signUpUser(
-      BuildContext context, String fname, String lname, String email, int number, String password) async {
+  Future<void> signUpUser(BuildContext context, String fname, String lname, String email, int number, String password) async {
     if (fname.isEmpty || lname.isEmpty || email.isEmpty || password.isEmpty || number <= 0) {
       CustomSnackbar.showSnackbar(context, 'All fields are required!', backgroundColor: Colors.red);
+      return;
+    }
+
+    // Password validation
+    final RegExp passwordRegex = RegExp(
+        r'^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$'); // Must contain an uppercase, a number, a special character, and be at least 8 characters long
+
+    if (!passwordRegex.hasMatch(password)) {
+      CustomSnackbar.showSnackbar(
+        context,
+        'Password must meet the following criteria:\n• At least 8 characters long\n• At least one uppercase letter\n• At least one number\n• At least one special character',
+        backgroundColor: Colors.red,
+      );
       return;
     }
 
@@ -27,12 +40,27 @@ class AuthFunctions {
         number: number,
         password: hashedPassword,
       );
+
+      // Show success message
+      CustomSnackbar.showSnackbar(context, 'User Registered Successfully!', backgroundColor: Colors.green);
+
+      // Clear input fields
+      Navigator.pop(context); // Pop first to avoid UI lag
+      Future.delayed(Duration(milliseconds: 300), () {
+        clearTextFields(context);
+      });
     } catch (e) {
       CustomSnackbar.showSnackbar(context, 'Error: $e', backgroundColor: Colors.red);
-      //print(e);
     }
   }
 
+// Function to clear text fields
+  void clearTextFields(BuildContext context) {
+    final state = context.findAncestorStateOfType<RegisterState>();
+    if (state != null) {
+      state.clearFields();
+    }
+  }
 
   Future<void> loginUser(BuildContext context, String email, String password) async {
     if (email.isEmpty || password.isEmpty) {
@@ -54,7 +82,9 @@ class AuthFunctions {
         'lname': user['last_name'],
         'email': user['email'],
         'mobile_no': user['mobile_no'].toString(),
+        'link': user['dashlink']
       };
+
       await box.write('user_data', userData);
       await box.save();
 

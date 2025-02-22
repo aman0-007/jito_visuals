@@ -36,7 +36,7 @@ class Signup extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           CustomButton(
-            text: 'Sign Up',
+            text: 'Sign In',
             onPressed: () {
               AuthFunctions().loginUser(context, _emailController.text, _passwordController.text);
             },
@@ -64,7 +64,7 @@ class Signup extends StatelessWidget {
                 ),
                 icon: const Icon(Icons.g_mobiledata, color: Colors.red),
                 onPressed: () {
-                  // Google login logic
+                  CustomSnackbar.showSnackbar(context, 'Will be added soon!', backgroundColor: Colors.orange);
                 },
                 label: const Text("Google"),
               ),

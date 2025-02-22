@@ -8,7 +8,14 @@ import '../contants/custom_snackbar.dart';
 import 'components/termsandprivacytext.dart';
 import 'components/textfield.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  const Register({super.key});
+
+  @override
+  RegisterState createState() => RegisterState();
+}
+
+class RegisterState  extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
@@ -17,7 +24,15 @@ class Register extends StatelessWidget {
 
   final AuthService _authService = AuthService();
 
-  Register({super.key});
+  void clearFields() {
+    setState(() {
+      _firstNameController.clear();
+      _lastNameController.clear();
+      _emailController.clear();
+      _numberController.clear();
+      _passwordController.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +88,7 @@ class Register extends StatelessWidget {
           CustomButton(
             text: 'Create Account',
             onPressed: () {
-              AuthFunctions().signUpUser(context, _firstNameController.text.toUpperCase(), _lastNameController.text.toUpperCase(), _emailController.text, int.parse(_numberController.text), _passwordController.text);
-              //print('Primary button pressed');
+              AuthFunctions().signUpUser(context, _firstNameController.text.toUpperCase(), _lastNameController.text.toUpperCase(), _emailController.text, int.parse(_numberController.text) ?? 0, _passwordController.text);
             },
           ),
           const DashedLineWithText(text: "OR"),
