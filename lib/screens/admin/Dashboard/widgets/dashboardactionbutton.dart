@@ -40,9 +40,13 @@ class DashboardActionButton extends StatelessWidget {
               children: [
                 Icon(icon, size: 32, color: color),
                 const SizedBox(height: 12),
-                Text(
-                  label,
-                  style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.w500),
+                // Center only the label
+                Center(
+                  child: Text(
+                    label,
+                    style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center, // Ensure the text is centered
+                  ),
                 ),
               ],
             ),

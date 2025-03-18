@@ -88,12 +88,12 @@ class DashboardActions extends StatelessWidget {
       dashboardActions = [
         DashboardActionButton(
           icon: Icons.task_alt,
-          label: 'Apex Scorecard',
+          label: 'JITO Activities Scorecard',
           color: const Color(0xFFF5A201),
           onTap: () {
             Navigator.of(context).push(CustomWebViewPageRoute(
               url: box.read('user_data')?['link'],
-              title: 'Apex Scorecard',
+              title: 'JITO Activities Scorecard',
             ));
           },
         ),
@@ -105,8 +105,8 @@ class DashboardActions extends StatelessWidget {
     } else if (dashboardActions.length == 1) {
       return Center(
         child: SizedBox(
-          width: 190, // Adjust width to match grid items
-          height: 190, // Adjust height to match grid items
+          width: 200, // Adjust width to match grid items
+          height: 200, // Adjust height to match grid items
           child: dashboardActions.first,
         ),
       );
