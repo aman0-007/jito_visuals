@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jito_visuals/screens/onboard/theme/colors.dart';
-import 'package:jito_visuals/screens/users/BOD/customwebview.dart';
+
+import '../../webview/webview_route.dart';
 
 class DashboardchartScreen extends StatelessWidget {
   const DashboardchartScreen({super.key});

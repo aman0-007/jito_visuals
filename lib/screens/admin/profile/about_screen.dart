@@ -161,7 +161,7 @@ class AboutAppPage extends StatelessWidget {
                     _buildVersionDetailRow(
                       context,
                       label: 'Last Updated',
-                      value: 'February 14, 2024',
+                      value: 'March 22, 2025',
                       primaryColor: primaryColor,
                     ),
                     _buildDivider(),
@@ -192,14 +192,14 @@ class AboutAppPage extends StatelessWidget {
                     _buildDeveloperDetailRow(
                       context,
                       label: 'Company',
-                      value: 'Your Company Name',
+                      value: 'JITO',
                       primaryColor: primaryColor,
                     ),
                     _buildDivider(),
                     _buildDeveloperDetailRow(
                       context,
                       label: 'Website',
-                      value: 'www.yourwebsite.com',
+                      value: 'www.jitoworld.org',
                       isLink: true,
                       primaryColor: primaryColor,
                       secondaryColor: secondaryColor,

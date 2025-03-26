@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../BOD/customwebview.dart';
+
+import '../../webview/webview_route.dart';
 
 class BodImageOptionButtons extends StatelessWidget {
   final String buttonText;
