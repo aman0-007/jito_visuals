@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jito_visuals/screens/onboard/theme/colors.dart';
-
+import '../../contants/googledrive_image.dart';
 import '../../webview/webview_route.dart';
 
 class DashboardchartScreen extends StatelessWidget {
@@ -34,41 +34,72 @@ class DashboardchartScreen extends StatelessWidget {
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.3,
                 children: [
-                  _buildIconButton(
+                  _buildImageButton(
                     context,
-                    'Zones & Chapter Events',
-                    Icons.location_on,
-                    'https://app.powerbi.com/view?r=eyJrIjoiNmJmMDU3MDktOGU1Ny00OTEyLTkxYjMtNDRmNzlmMTQ4MGZlIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+                    "APEX Scorecard",
+                    "https://drive.google.com/file/d/1FBFYHSjqJraNtXH226cREH_Klf_bdspu/view?usp=drive_link",
+                    "https://app.powerbi.com/view?r=eyJrIjoiM2NkYTI0ZGYtMjY5ZS00YjMyLThjNWUtYzZlMzlhODdhNTk3IiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9",
                   ),
-                  _buildIconButton(
+                  // _buildIconButton(
+                  //   context,
+                  //   "APEX Scorecard",
+                  //   Icons.dashboard,
+                  //   "https://app.powerbi.com/view?r=eyJrIjoiM2NkYTI0ZGYtMjY5ZS00YjMyLThjNWUtYzZlMzlhODdhNTk3IiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9",
+                  // ),
+                  _buildImageButton(
                     context,
-                    'Project Events',
-                    Icons.assignment,
-                    'https://app.powerbi.com/view?r=eyJrIjoiYmEyY2Y3OWUtYzczYi00YjNmLTg5ODEtMjYwZjNkMWNjYzM1IiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+                    "GUJARAT ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=1aetyD0mdtuLfOcMr90Ez-ROkrNeZ4sDI",
+                    "https://app.powerbi.com/view?r=eyJrIjoiZmJiMjE0MzktOGRhNi00OGJkLTkzZjAtYWYwODMwZjM2ZDFkIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9",
                   ),
-                  _buildIconButton(
+
+                  _buildImageButton(
                     context,
-                    'Sameeksha Dashboard',
-                    Icons.dashboard,
-                    'https://app.powerbi.com/view?r=eyJrIjoiMmNlMGIzMDQtYjMwMy00ZGQ0LTllZjItNzQxZjEwOGU2MDI0IiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+                    "MUMBAI ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=16bxaeokv6X95YxEYBIUMykXJGKmkJog9",
+                    "https://app.powerbi.com/view?r=eyJrIjoiNGJhNDhjMDEtOGJkMi00YjQ3LThiZTgtMjM2YTA3Yjc5NWZhIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9",
                   ),
                   _buildImageButton(
                     context,
-                    'Mumbai Zone Events Overview',
-                    'assets/zone/jMumbai.jpg',
-                    'https://app.powerbi.com/view?r=eyJrIjoiNGJhNDhjMDEtOGJkMi00YjQ3LThiZTgtMjM2YTA3Yjc5NWZhIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+                    "TNAPTS ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=162i0QxrtDFamX09UwbmWPbKsedz9qggD",
+                    "https://app.powerbi.com/view?r=eyJrIjoiODJjNzdiZWItMDI3NS00N2NmLTllMDY…",
                   ),
                   _buildImageButton(
                     context,
-                    'TNAPTS Zone Events Overview',
-                    'assets/zone/jTNAPTS.jpg',
-                    'https://app.powerbi.com/view?r=eyJrIjoiODJjNzdiZWItMDI3NS00N2NmLTllMDYtMzNmOTNmOTRiN2NkIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+                    "EAST ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=1-jPtLnf1nbSRSMjhS1Ft5hdjBP0w3RR-",
+                    "https://app.powerbi.com/view?r=eyJrIjoiNTQwYjBjZjMtZTEzNS00NDExLWE4YmE…",
                   ),
                   _buildImageButton(
                     context,
-                    'Gujarat Zone Events Overview',
-                    'assets/zone/jGujarat.jpg',
-                    'https://app.powerbi.com/view?r=eyJrIjoiZmJiMjE0MzktOGRhNi00OGJkLTkzZjAtYWYwODMwZjM2ZDFkIiwidCI6IjJmNjE4ZGE1LTM1ZGMtNGNhMC1iZWRlLTM4NWJkMmU5NjUwMSJ9',
+                    "KKG ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=1Y1E6i6cJ26JycAH8IidapA6bt1REG9Rx",
+                    "https://app.powerbi.com/view?r=eyJrIjoiYTQ4OTRlN2UtMzc1Ny00ZTVjLTkzY2E…",
+                  ),
+                  _buildImageButton(
+                    context,
+                    "MPCG ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=1QZLVZ5pGDRmYEnD6QqSrp2NAFznEu3k5",
+                    "https://app.powerbi.com/view?r=eyJrIjoiZGFjMWI2MmYtYTMyMC00MzJiLTkyZDE…",
+                  ),
+                  _buildImageButton(
+                    context,
+                    "NORTH ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=1Dbw3t5BJ68ckqSJ1h1BI14ivy8sIZgEu",
+                    "https://app.powerbi.com/view?r=eyJrIjoiYzU3NmQyMGYtZmQzMS00MDFlLTlmMDU…",
+                  ),
+                  _buildImageButton(
+                    context,
+                    "RAJASTHAN ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=165D1YcgUa3VUNAd3HbfpEAxbc8InNT0h",
+                    "https://app.powerbi.com/view?r=eyJrIjoiNjRjMjQ1ZmEtY2JlZS00YzE3LTg3NzQ…",
+                  ),
+                  _buildImageButton(
+                    context,
+                    "ROM ZONE Events Overview",
+                    "https://drive.google.com/uc?export=view&id=1AYNkTLx28ZXkxVjlTlhdpMr6UdVPCnwZ",
+                    "https://app.powerbi.com/view?r=eyJrIjoiZTUwNjI5NzctNjdlNi00ZDIyLTk1ODc…",
                   ),
                 ],
               ),
@@ -79,35 +110,7 @@ class DashboardchartScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildIconButton(BuildContext context, String text, IconData icon, String url) {
-    return _buildButton(
-      context,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 32,
-            color: SplashColors.lightOrange,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-      url: url,
-      text: text,
-    );
-  }
-
-  Widget _buildImageButton(BuildContext context, String text, String imagePath, String url) {
+  Widget _buildImageButton(BuildContext context, String text, String imageUrl, String url) {
     return _buildButton(
       context,
       child: Stack(
@@ -115,9 +118,8 @@ class DashboardchartScreen extends StatelessWidget {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12), // Optional: for rounded corners
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.fill, // Ensures the image fully covers the button
+              child: GoogleDriveImageLoader(
+                driveFileUrl: imageUrl,
               ),
             ),
           ),
@@ -127,7 +129,7 @@ class DashboardchartScreen extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0.2),
+                  Colors.black.withOpacity(0.1),
                   Colors.black.withOpacity(0.7),
                 ],
               ),
@@ -142,7 +144,7 @@ class DashboardchartScreen extends StatelessWidget {
                 text,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -154,6 +156,34 @@ class DashboardchartScreen extends StatelessWidget {
       text: text,
     );
   }
+
+  // Widget _buildIconButton(BuildContext context, String text, IconData icon, String url) {
+  //   return _buildButton(
+  //     context,
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         Icon(
+  //           icon,
+  //           size: 32,
+  //           color: SplashColors.lightOrange,
+  //         ),
+  //         const SizedBox(height: 12),
+  //         Text(
+  //           text,
+  //           textAlign: TextAlign.center,
+  //           style: const TextStyle(
+  //             color: Colors.white,
+  //             fontSize: 16,
+  //             fontWeight: FontWeight.w500,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //     url: url,
+  //     text: text,
+  //   );
+  // }
 
   Widget _buildButton(BuildContext context, {required Widget child, required String url, required String text,}) {
     return Material(

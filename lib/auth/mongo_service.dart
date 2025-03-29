@@ -76,7 +76,8 @@ class MongoService {
         "password": password,
         "userType": "default",
         "createdAt": DateTime.now().toUtc().toIso8601String(),
-        "dashlink": "none"
+        "dashlink": "none",
+        "profile": "none"
       });
 
       CustomSnackbar.showSnackbar(context, 'User registered successfully!', backgroundColor: Colors.green);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jito_visuals/screens/contants/screen_change_anim.dart';
 import 'package:jito_visuals/screens/register/register_screen.dart';
-import '../contants/custom_snackbar.dart';
 import '../signup/signup_screen.dart';
 
 class Afteronboard extends StatelessWidget {
@@ -17,6 +16,12 @@ class Afteronboard extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14.0),
+              child: Image.asset("assets/bod/BOD.jpg"),
+            ),
+            const SizedBox(height: 50),
+
             const Text(
               "Welcome to Jito_Visuals!",
               style: TextStyle(
@@ -25,7 +30,7 @@ class Afteronboard extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             const Text(
               "Sign up/Log in to start your journey with us.",
               style: TextStyle(
@@ -33,40 +38,40 @@ class Afteronboard extends StatelessWidget {
                 color: Colors.white70,
               ),
             ),
-            const SizedBox(height: 32),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                minimumSize: Size(buttonWidth, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              icon: const Icon(Icons.g_mobiledata, color: Colors.red),
-              onPressed: () {
-                // Google login logic
-              },
-              label: const Text("Continue with Google"),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4267B2),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                minimumSize: Size(buttonWidth, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              icon: const Icon(Icons.facebook),
-              onPressed: () {
-                CustomSnackbar.showSnackbar(context, 'Will be added soon!', backgroundColor: Colors.orange);
-              },
-              label: const Text("Continue with Facebook"),
-            ),
+            // const SizedBox(height: 32),
+            // ElevatedButton.icon(
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: Colors.white,
+            //     foregroundColor: Colors.black,
+            //     padding: const EdgeInsets.symmetric(vertical: 14),
+            //     minimumSize: Size(buttonWidth, 50),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //   ),
+            //   icon: const Icon(Icons.g_mobiledata, color: Colors.red),
+            //   onPressed: () {
+            //     // Google login logic
+            //   },
+            //   label: const Text("Continue with Google"),
+            // ),
+            // const SizedBox(height: 16),
+            // ElevatedButton.icon(
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: const Color(0xFF4267B2),
+            //     foregroundColor: Colors.white,
+            //     padding: const EdgeInsets.symmetric(vertical: 14),
+            //     minimumSize: Size(buttonWidth, 50),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //   ),
+            //   icon: const Icon(Icons.facebook),
+            //   onPressed: () {
+            //     CustomSnackbar.showSnackbar(context, 'Will be added soon!', backgroundColor: Colors.orange);
+            //   },
+            //   label: const Text("Continue with Facebook"),
+            // ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
@@ -134,6 +139,8 @@ class Afteronboard extends StatelessWidget {
                 color: Colors.white70,
               ),
             ),
+            const SizedBox(height: 80),
+
           ],
         ),
 

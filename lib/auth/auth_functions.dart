@@ -82,7 +82,8 @@ class AuthFunctions {
         'lname': user['last_name'],
         'email': user['email'],
         'mobile_no': user['mobile_no'].toString(),
-        'link': user['dashlink']
+        'link': user['dashlink'],
+        'profile': user['profile']
       };
 
       await box.write('user_data', userData);

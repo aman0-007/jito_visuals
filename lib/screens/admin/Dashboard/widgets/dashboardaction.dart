@@ -70,7 +70,8 @@ class DashboardActions extends StatelessWidget {
           },
         ),
       ];
-    } else if (userType == 'PROJECT') {
+    }
+    else if (userType == 'PROJECT') {
       dashboardActions = [
         DashboardActionButton(
           icon: Icons.task_alt,
@@ -84,7 +85,8 @@ class DashboardActions extends StatelessWidget {
           },
         ),
       ];
-    } else if (userType == 'APEX') {
+    }
+    else if (userType == 'APEX') {
       dashboardActions = [
         DashboardActionButton(
           icon: Icons.task_alt,
@@ -101,7 +103,6 @@ class DashboardActions extends StatelessWidget {
     } else if (userType == 'ZONE') {
       String email = box.read('user_data')?['email'] ?? '';
       String labelText = email.split('.')[0].toUpperCase(); // Extracting part before the first dot and converting to uppercase
-
       dashboardActions = [
         DashboardActionButton(
           icon: Icons.task_alt,

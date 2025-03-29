@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'package:jito_visuals/screens/admin/profile/about_screen.dart';
 import 'package:jito_visuals/screens/admin/profile/widget/logoutdialogue.dart';
 import 'package:jito_visuals/screens/onboard/theme/colors.dart';
+
+import '../../contants/googledrive_image.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,8 +15,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
-  File? _profileImage;
-  final ImagePicker _picker = ImagePicker();
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<double> _slideAnimation;
@@ -51,32 +50,10 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     super.dispose();
   }
 
-  Future<void> _pickImage() async {
-    try {
-      final XFile? image = await _picker.pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 80,
-      );
-      if (image != null) {
-        setState(() {
-          _profileImage = File(image.path);
-        });
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error picking image: ${e.toString()}'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    //final box = GetStorage();
 
     return Scaffold(
       backgroundColor: isDark ? SplashColors.darkBlue : Colors.grey[50],
@@ -133,52 +110,44 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     final isDark = theme.brightness == Brightness.dark;
     final box = GetStorage();
     final String userType = box.read('user_data')?['userType'];
+    final String? profileImageUrl = box.read('user_data')?['profile'];
 
     return Center(
       child: Column(
+        mainAxisSize: MainAxisSize.min,  // Let the content determine the size
         children: [
           Hero(
             tag: 'profile_image',
-            child: GestureDetector(
-              onTap: _pickImage,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: SplashColors.lightBlue.withOpacity(0.1),
-                  border: Border.all(
-                    color: SplashColors.lightBlue,
-                    width: 2,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: SplashColors.lightBlue.withOpacity(0.2),
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                  image: _profileImage != null
-                      ? DecorationImage(
-                    image: FileImage(_profileImage!),
-                    fit: BoxFit.cover,
-                  )
-                      : null,
-                ),
-                child: _profileImage == null
-                    ? const Icon(
-                  Icons.person,
-                  size: 60,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              constraints: BoxConstraints(
+                maxWidth: 300,  // Optional max width
+                maxHeight: 210, // Optional max height
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: SplashColors.lightBlue.withOpacity(0.1),
+                border: Border.all(
                   color: SplashColors.lightBlue,
-                )
-                    : null,
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: SplashColors.lightBlue.withOpacity(0.2),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: GoogleDriveImageLoader(
+                driveFileUrl: profileImageUrl,
+                placeholderColor: SplashColors.lightBlue,
               ),
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            box.read('user_data')?['fname'] + ' ' + box.read('user_data')?['lname'],
+            '${box.read('user_data')?['fname'] ?? ''} ${box.read('user_data')?['lname'] ?? ''}',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
               color: isDark ? Colors.white : SplashColors.darkBlue,
@@ -194,6 +163,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       ),
     );
   }
+
 
   Widget _buildUserDetailsSection(BuildContext context) {
     // final theme = Theme.of(context);
@@ -218,22 +188,15 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             value: box.read('user_data')?['email'],
             //onEdit: () => _showEditDialog(context, 'Email'),
           ),
-          const Divider(height: 24),
-          _buildDetailTile(
-            context,
-            icon: Icons.phone_outlined,
-            label: 'Phone',
-            value: box.read('user_data')?['mobile_no'],
-            //onEdit: () => _showEditDialog(context, 'Phone'),
-          ),
           // const Divider(height: 24),
           // _buildDetailTile(
           //   context,
-          //   icon: Icons.location_on_outlined,
-          //   label: 'Location',
-          //   value: 'New York, USA',
-          //   onEdit: () => _showEditDialog(context, 'Location'),
+          //   icon: Icons.phone_outlined,
+          //   label: 'Phone',
+          //   value: box.read('user_data')?['mobile_no'],
+          //   //onEdit: () => _showEditDialog(context, 'Phone'),
           // ),
+
         ],
       ),
     );
@@ -280,14 +243,6 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             ],
           ),
         ),
-        // IconButton(
-        //   icon: Icon(
-        //     Icons.edit,
-        //     size: 20,
-        //     color: SplashColors.lightBlue,
-        //   ),
-        //   //onPressed: onEdit,
-        // ),
       ],
     );
   }
@@ -399,37 +354,4 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     );
   }
 
-  // Future<void> _showEditDialog(BuildContext context, String field) async {
-  //   final controller = TextEditingController();
-  //   final theme = Theme.of(context);
-  //
-  //   return showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: Text('Edit $field'),
-  //       content: TextField(
-  //         controller: controller,
-  //         decoration: InputDecoration(
-  //           labelText: field,
-  //           border: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //           ),
-  //         ),
-  //       ),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Navigator.pop(context),
-  //           child: const Text('Cancel'),
-  //         ),
-  //         FilledButton(
-  //           onPressed: () {
-  //             // Implement save logic here
-  //             Navigator.pop(context);
-  //           },
-  //           child: const Text('Save'),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
