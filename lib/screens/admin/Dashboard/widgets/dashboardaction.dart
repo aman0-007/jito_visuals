@@ -4,7 +4,11 @@ import 'package:jito_visuals/screens/admin/Dashboard/widgets/dashboardactionbutt
 import 'package:jito_visuals/screens/admin/dashcharts/dashboardchart_screen.dart';
 import 'package:jito_visuals/screens/admin/team/alluserlist_screen.dart';
 import 'package:jito_visuals/screens/contants/screen_change_anim.dart';
+import '../../../contants/custom_snackbar.dart';
 import '../../../webview/webview_route.dart';
+import '../../dashcharts/apexview_screen.dart';
+import '../../dashcharts/projectview_screen.dart';
+import '../../dashcharts/zoneview_screen.dart';
 
 class DashboardActions extends StatelessWidget {
   final bool isSmallScreen;
@@ -88,15 +92,65 @@ class DashboardActions extends StatelessWidget {
     }
     else if (userType == 'APEX') {
       dashboardActions = [
+        // DashboardActionButton(
+        //   icon: Icons.task_alt,
+        //   label: 'JITO Activities Scorecard',
+        //   color: const Color(0xFFF5A201),
+        //   onTap: () {
+        //     Navigator.of(context).push(CustomWebViewPageRoute(
+        //       url: box.read('user_data')?['link'],
+        //       title: 'JITO Activities Scorecard',
+        //     ));
+        //   },
+        // ),
         DashboardActionButton(
-          icon: Icons.task_alt,
-          label: 'JITO Activities Scorecard',
+          icon: Icons.show_chart,
+          label: 'Apex View',
           color: const Color(0xFFF5A201),
           onTap: () {
-            Navigator.of(context).push(CustomWebViewPageRoute(
-              url: box.read('user_data')?['link'],
-              title: 'JITO Activities Scorecard',
-            ));
+            Navigator.push(
+              context,
+              AnimatedPageTransition(
+                page: const ApexviewScreen(),
+                transitionType: TransitionType.slideFromBottom,
+              ),
+            );
+          },
+        ),
+        DashboardActionButton(
+          icon: Icons.location_on,
+          label: 'Zone View',
+          color: const Color(0xFFF5A201),
+          onTap: () {
+            Navigator.push(
+              context,
+              AnimatedPageTransition(
+                page: const ZoneviewScreen(),
+                transitionType: TransitionType.slideFromBottom,
+              ),
+            );
+          },
+        ),
+        DashboardActionButton(
+          icon: Icons.map,
+          label: 'Project View',
+          color: const Color(0xFF00537A),
+          onTap: () {
+            CustomSnackbar.showSnackbar(
+              context,
+              'This feature will be added soon...',
+              backgroundColor: Colors.orange,
+              textColor: Colors.white,
+              icon: Icons.rotate_right, // Icon for rotation suggestion
+              duration: Duration(seconds: 3),
+            );
+            // Navigator.push(
+            //   context,
+            //   AnimatedPageTransition(
+            //     page: const ProjectviewScreen(),
+            //     transitionType: TransitionType.slideFromBottom,
+            //   ),
+            // );
           },
         ),
       ];
